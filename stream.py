@@ -11,7 +11,7 @@ class Listener(tweepy.StreamListener):
         if not prod:
             conn = psycopg2.connect(dbname="tweets", user="postgres", password="postgres")
         else:
-            conn = psycopg2.connect(os.environ[DATABASE_URL] + "?ssl: true")
+            conn = psycopg2.connect(os.environ['DATABASE_URL'])
         cur = conn.cursor()
         cur.execute('INSERT into incidents (id, content, image, date) VALUES (%s, %s, %s, %s)', row)
         conn.commit()
