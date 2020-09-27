@@ -21,7 +21,7 @@ class Listener(tweepy.StreamListener):
     def on_status(self, status):
         # only counts if the handle was mentioned
         mentions = status.entities['user_mentions']
-        if mentions and mentions[0]['screen_name'] == "realDonaldTrump":
+        if mentions and mentions[0]['screen_name'] == "cust0diet":
             id_ = status.id
             date = status.created_at
             text = status.text
@@ -44,4 +44,4 @@ if __name__ == "__main__":
 
     # Stream mentions and parse to db
     stream = tweepy.Stream(auth = api.auth, listener=Listener())
-    stream.filter(track=['the'])
+    stream.filter(track=['cust0diet'])
