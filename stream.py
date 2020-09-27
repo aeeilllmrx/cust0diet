@@ -1,4 +1,5 @@
 import json
+import os
 import psycopg2
 import sqlite3
 import tweepy
@@ -29,13 +30,10 @@ class Listener(tweepy.StreamListener):
         print(status)
 
 
-def main():
-    with open('keys.json') as f:
-      keys = json.load(f)
-
+if __name__ == "__main__":
     # Authenticate to Twitter
-    auth = tweepy.OAuthHandler(keys['api_key'], keys['api_key_secret'])
-    auth.set_access_token(keys['access_token'], keys['access_token_secret'])
+    auth = tweepy.OAuthHandler(os.environ['api_key'], os.environ['api_key_secret'])
+    auth.set_access_token(os.environ['access_token'], os.environ['access_token_secret'])
 
     # Create API object
     api = tweepy.API(auth, wait_on_rate_limit=True,
