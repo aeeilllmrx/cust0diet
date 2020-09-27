@@ -1,1 +1,2 @@
-web: python server.py && python stream.py
+web: python server.py
+worker: python stream.py
