@@ -6,9 +6,12 @@ import tweepy
 
 
 class Listener(tweepy.StreamListener):
-    def insert(self, row):
+    def insert(self, row, prod=True):
         print('inserting something')
-        conn = psycopg2.connect(dbname="tweets", user="postgres", password="postgres")
+        if not prod:
+            conn = psycopg2.connect(dbname="tweets", user="postgres", password="postgres")
+        else:
+            conn = psycopg2.connect(os.environ[DATABASE_URL] + "?ssl: true")
         cur = conn.cursor()
         cur.execute('INSERT into incidents (id, content, image, date) VALUES (%s, %s, %s, %s)', row)
         conn.commit()
